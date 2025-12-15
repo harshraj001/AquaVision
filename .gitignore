@@ -29,3 +29,13 @@ Thumbs.db
 # IDEs
 .vscode/
 .idea/
+
+# Data and Scripts
+server/data/*.csv
+server/scripts/importHP.js
+server/scripts/verifyHP.js
+
+# Documentation
+server/README.md
+PRESENTATION_FLOW.md
+
