@@ -13,7 +13,7 @@ A production-ready **MERN Stack** web application for groundwater resource evalu
 - **Time Simulation** - Timeline scrubber with play/pause to see seasonal fluctuations
 - **Linear Interpolation Engine** - Calculate depths for any date between readings
 - **Analytics Dashboard** - Hydrographs, borehole visualizations, and district statistics
-- **JWT Authentication** - Secure login for protected features like CSV export
+- **Email Export** - Securely request CSV exports via email
 - **Database-Driven** - Add new states without code changes, just database updates
 - **Responsive Design** - Works on desktop and tablet devices
 
@@ -24,14 +24,14 @@ A production-ready **MERN Stack** web application for groundwater resource evalu
 | Frontend | React 18, Vite, Tailwind CSS, Leaflet, Recharts, Framer Motion |
 | Backend | Node.js, Express.js |
 | Database | MongoDB (Mongoose) |
-| Auth | JWT (JSON Web Tokens) |
-| Tools | json2csv, Axios |
+| Deployment | Vercel (Frontend), Render (Backend) |
+| Tools | json2csv, Axios, Nodemailer |
 
 ## 📁 Project Structure
 
 ```
 main/
-├── client/                    # React Frontend
+├── client/                    # React Frontend (Vite)
 │   ├── src/
 │   │   ├── components/        # Reusable UI components
 │   │   │   ├── common/        # Navbar, Footer, LoadingSpinner
@@ -40,14 +40,13 @@ main/
 │   │   ├── pages/             # Route pages
 │   │   ├── services/          # API service layer
 │   │   ├── hooks/             # Custom React hooks
-│   │   └── context/           # Auth context
+│   │   └── context/           # Context providers
 │   └── ...
 │
 ├── server/                    # Express Backend
 │   ├── config/                # Database connection
 │   ├── models/                # Mongoose schemas
 │   ├── controllers/           # Business logic
-│   ├── middleware/            # JWT auth middleware
 │   ├── routes/                # API routes
 │   └── scripts/               # Data seeder
 │
@@ -77,13 +76,19 @@ npm install
 
 ### 2. Configure Environment
 
-Edit `server/.env`:
-
+**Server** (`server/.env`):
 ```env
 PORT=5000
 MONGODB_URI=mongodb+srv://your-connection-string
-JWT_SECRET=your_secret_key
 DATA_FILE_PATH=../../data/seed-data.json
+GMAIL_USER=your-email@gmail.com
+GMAIL_APP_PASSWORD=your-app-password
+BASE_URL=http://localhost:5000
+```
+
+**Client** (`client/.env`):
+```env
+VITE_API_BASE_URL=http://localhost:5000/api
 ```
 
 ### 3. Seed the Database
@@ -91,28 +96,6 @@ DATA_FILE_PATH=../../data/seed-data.json
 ```bash
 cd server
 npm run seed
-```
-
-Expected output:
-```
-✅ Connected to MongoDB
-📂 Reading data from: /path/to/seed-data.json
-
-📊 Found 3 states and 16 wells
-
-🔄 Upserting states...
-   ✓ Punjab (IN-PB)
-   ✓ Haryana (IN-HR)
-   ✓ Maharashtra (IN-MH)
-
-🔄 Upserting wells...
-   ✓ Processed 16 wells
-
-✅ Seeding completed successfully!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   Total States in DB: 3
-   Total Wells in DB:  16
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ### 4. Run the Application
@@ -130,6 +113,18 @@ npm run dev
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000
 
+## 🌐 Deployment
+
+### Frontend (Vercel)
+The frontend is optimized for Vercel. Ensure you set the `VITE_API_BASE_URL` environment variable in your Vercel project settings to point to your deployed backend.
+
+### Backend (Render)
+The backend is ready for Render. Set the following environment variables:
+- `MONGODB_URI`
+- `GMAIL_USER`
+- `GMAIL_APP_PASSWORD`
+- `BASE_URL` (Your deployed backend URL)
+
 ## 📡 API Endpoints
 
 ### Public Routes
@@ -140,14 +135,7 @@ npm run dev
 | GET | `/api/states/:stateCode` | Get state config with districts |
 | GET | `/api/simulation/:stateCode?date=YYYY-MM-DD` | Get interpolated well data |
 | GET | `/api/simulation/:stateCode/daterange` | Get min/max dates |
-
-### Protected Routes (Requires JWT)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register new user |
-| POST | `/api/auth/login` | Login and get token |
-| GET | `/api/export/:district` | Download CSV export |
+| POST | `/api/export/request` | Request CSV export via email |
 
 ## 📊 Adding New States
 
