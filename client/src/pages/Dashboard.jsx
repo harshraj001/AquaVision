@@ -47,13 +47,11 @@ const Dashboard = () => {
             try {
                 const response = await statesAPI.getAll();
                 setStates(response.data);
-                // For Pan-India view (no stateCode), set loading to false here
-                if (!stateCode) {
-                    setLoading(false);
-                }
+                // Loading will be handled by fetchSimulationData for Pan-India
             } catch (err) {
                 console.error('Failed to fetch states:', err);
                 setLoading(false);
+                setError('Failed to load application data.');
             }
         };
         fetchStates();
@@ -82,9 +80,9 @@ const Dashboard = () => {
             } catch (err) {
                 console.error('Failed to fetch initial data:', err);
                 setError('Failed to load state data. Please try again.');
-            } finally {
                 setLoading(false);
             }
+            // Do not set loading false here, wait for simulation data
         };
 
         fetchInitialData();
@@ -114,6 +112,8 @@ const Dashboard = () => {
                     setDistrictStats([]);
                 } catch (err) {
                     console.error('Failed to fetch pan-India data:', err);
+                } finally {
+                    setLoading(false);
                 }
                 return;
             }
@@ -126,6 +126,8 @@ const Dashboard = () => {
                 setDistrictStats(response.data.districtStats);
             } catch (err) {
                 console.error('Failed to fetch simulation data:', err);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -251,10 +253,10 @@ const Dashboard = () => {
 
     if (loading) {
         return (
-            <div className="h-screen flex items-center justify-center bg-slate-50">
+            <div className="h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
                 <div className="text-center">
-                    <div className="w-10 h-10 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-slate-600">Loading dashboard...</p>
+                    <div className="w-10 h-10 border-4 border-primary-600 dark:border-primary-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-slate-600 dark:text-slate-300">Loading dashboard...</p>
                 </div>
             </div>
         );
@@ -262,9 +264,9 @@ const Dashboard = () => {
 
     if (error) {
         return (
-            <div className="h-screen flex flex-col items-center justify-center bg-slate-50">
-                <p className="text-red-600 mb-4">{error}</p>
-                <button onClick={() => navigate('/')} className="px-4 py-2 bg-primary-600 text-white rounded-lg">
+            <div className="h-screen flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
+                <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
+                <button onClick={() => navigate('/')} className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors">
                     Return Home
                 </button>
             </div>
@@ -272,28 +274,28 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="h-screen flex flex-col overflow-hidden bg-slate-50">
+        <div className="h-screen flex flex-col overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
             {/* Navbar - consistent with other pages */}
             <Navbar />
 
             {/* Context Bar - shows current state/view */}
-            <div className="bg-white border-b border-slate-200 px-4 py-1.5 flex items-center justify-between shrink-0">
+            <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-1.5 flex items-center justify-between shrink-0 transition-colors duration-200">
                 <div className="flex items-center gap-2 text-sm">
-                    <span className="text-slate-500">Dashboard</span>
-                    <span className="text-slate-300">/</span>
+                    <span className="text-slate-500 dark:text-slate-400">Dashboard</span>
+                    <span className="text-slate-300 dark:text-slate-600">/</span>
                     {stateCode ? (
-                        <span className="font-semibold text-slate-700">{stateConfig?.name || 'Loading...'}</span>
+                        <span className="font-semibold text-slate-700 dark:text-slate-200">{stateConfig?.name || 'Loading...'}</span>
                     ) : (
-                        <span className="font-semibold text-blue-600">Pan-India View</span>
+                        <span className="font-semibold text-blue-600 dark:text-blue-400">Pan-India View</span>
                     )}
                     {selectedDistrict && (
                         <>
-                            <span className="text-slate-300">/</span>
-                            <span className="font-medium text-slate-600">{selectedDistrict}</span>
+                            <span className="text-slate-300 dark:text-slate-600">/</span>
+                            <span className="font-medium text-slate-600 dark:text-slate-300">{selectedDistrict}</span>
                         </>
                     )}
                 </div>
-                <div className="text-xs text-slate-400">
+                <div className="text-xs text-slate-400 dark:text-slate-500">
                     {wells.length} wells | Avg: {stateAverage}m
                 </div>
             </div>
@@ -318,7 +320,7 @@ const Dashboard = () => {
                 {/* Center: Map & Timeline */}
                 <section className="flex-1 flex flex-col gap-2 min-w-0">
                     {/* Map Container */}
-                    <div className="flex-1 bg-white rounded-xl border border-slate-200 shadow-sm relative p-1 min-h-0">
+                    <div className="flex-1 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm relative p-1 min-h-0 transition-colors duration-200">
                         <MapView
                             wells={wells}
                             center={stateConfig?.mapCenter || { lat: 22.5, lng: 78.9 }}
@@ -329,11 +331,11 @@ const Dashboard = () => {
                         />
 
                         {/* State Average Overlay */}
-                        <div className="absolute top-3 right-3 bg-white/95 backdrop-blur px-4 py-2 rounded-lg shadow-md border border-slate-100 z-[1000] text-right">
-                            <h3 className="text-xs font-bold text-slate-400 uppercase">
+                        <div className="absolute top-3 right-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur px-4 py-2 rounded-lg shadow-md border border-slate-100 dark:border-slate-700 z-[1000] text-right">
+                            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase">
                                 {selectedDistrict || stateConfig?.name || 'State'} Avg
                             </h3>
-                            <p className="text-xl font-bold text-slate-800">{stateAverage} m</p>
+                            <p className="text-xl font-bold text-slate-800 dark:text-slate-100">{stateAverage} m</p>
                         </div>
                     </div>
 
@@ -365,7 +367,7 @@ const Dashboard = () => {
             </main>
 
             {/* Footer */}
-            <footer className="bg-white border-t border-slate-200 py-1 px-4 text-xs text-slate-400 flex justify-between shrink-0">
+            <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-1 px-4 text-xs text-slate-400 dark:text-slate-500 flex justify-between shrink-0 transition-colors duration-200">
                 <span>© 2024 AquaVision India. Developed for Academic Project.</span>
                 <span>Data Source: CGWB Yearbook 2023-24</span>
             </footer>

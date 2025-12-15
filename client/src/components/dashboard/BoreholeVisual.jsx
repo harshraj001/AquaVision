@@ -34,9 +34,9 @@ const BoreholeVisual = ({
     const status = getStatusInfo();
 
     return (
-        <div className="bg-white rounded-lg border border-slate-200 p-3">
+        <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 p-3 transition-colors duration-200">
             <div className="flex justify-between items-center mb-2">
-                <h3 className="text-xs font-bold text-slate-800">Borehole Log</h3>
+                <h3 className="text-xs font-bold text-slate-800 dark:text-white">Borehole Log</h3>
                 <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${status.color} text-white`}>
                     {status.text}
                 </span>
@@ -44,7 +44,7 @@ const BoreholeVisual = ({
 
             <div className="flex gap-2 h-32">
                 {/* Strata Column */}
-                <div className="w-12 flex flex-col rounded overflow-hidden border border-slate-300 text-[8px] text-center font-semibold text-white shadow-inner">
+                <div className="w-12 flex flex-col rounded overflow-hidden border border-slate-300 dark:border-slate-600 text-[8px] text-center font-semibold text-white shadow-inner">
                     {soilProfile.slice(0, 3).map((layer, index) => (
                         <div
                             key={index}
@@ -60,20 +60,20 @@ const BoreholeVisual = ({
                 </div>
 
                 {/* Borehole Column */}
-                <div className="flex-1 bg-gradient-to-b from-amber-100 to-amber-200 rounded border border-slate-300 relative overflow-hidden shadow-inner">
+                <div className="flex-1 bg-gradient-to-b from-amber-100 to-amber-200 dark:from-amber-900 dark:to-amber-950 rounded border border-slate-300 dark:border-slate-600 relative overflow-hidden shadow-inner">
                     {/* Dry zone (above water) */}
                     <div
-                        className="absolute top-0 left-0 right-0 bg-gradient-to-b from-amber-50 to-amber-100"
+                        className="absolute top-0 left-0 right-0 bg-gradient-to-b from-amber-50 to-amber-100 dark:from-amber-900/50 dark:to-amber-900/30"
                         style={{ height: `${waterTopPercent}%` }}
                     />
 
                     {/* Water level */}
                     <div
-                        className="absolute left-0 right-0 bottom-0 bg-gradient-to-b from-blue-400 to-blue-600 transition-all duration-500"
+                        className="absolute left-0 right-0 bottom-0 bg-gradient-to-b from-blue-400 to-blue-600 dark:from-blue-600 dark:to-blue-800 transition-all duration-500"
                         style={{ height: `${100 - waterTopPercent}%` }}
                     >
                         {/* Water surface animation */}
-                        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300 animate-pulse opacity-80"></div>
+                        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300 dark:from-blue-500 dark:via-blue-400 dark:to-blue-500 animate-pulse opacity-80"></div>
                     </div>
 
                     {/* Casing pipe */}
@@ -83,10 +83,10 @@ const BoreholeVisual = ({
 
                     {/* Depth indicator line */}
                     <div
-                        className="absolute left-0 right-0 h-0.5 bg-slate-600"
+                        className="absolute left-0 right-0 h-0.5 bg-slate-600 dark:bg-slate-400"
                         style={{ top: `${waterTopPercent}%` }}
                     >
-                        <div className="absolute -right-1 -top-2 text-[10px] font-bold text-slate-700 bg-white/80 px-1 rounded">
+                        <div className="absolute -right-1 -top-2 text-[10px] font-bold text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-800/80 px-1 rounded">
                             {currentDepth?.toFixed(1)}m
                         </div>
                     </div>
@@ -103,7 +103,7 @@ const BoreholeVisual = ({
                 </div>
 
                 {/* Depth Scale */}
-                <div className="w-8 flex flex-col justify-between text-[9px] text-slate-500 font-medium">
+                <div className="w-8 flex flex-col justify-between text-[9px] text-slate-500 dark:text-slate-400 font-medium">
                     <span>0m</span>
                     <span className="text-red-500">{criticalDepth}m</span>
                     <span>{maxDepth}m</span>
@@ -111,7 +111,7 @@ const BoreholeVisual = ({
             </div>
 
             {/* Info row */}
-            <div className="mt-2 flex justify-between text-[10px] text-slate-500">
+            <div className="mt-2 flex justify-between text-[10px] text-slate-500 dark:text-slate-400">
                 <span>Water Table: <strong className={status.textColor}>{currentDepth?.toFixed(1)}m</strong></span>
                 <span>Critical: <strong className="text-red-500">{criticalDepth}m</strong></span>
             </div>

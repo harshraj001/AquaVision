@@ -50,7 +50,7 @@ const MapView = ({
     };
 
     return (
-        <div className="h-full w-full rounded-xl overflow-hidden shadow-sm border border-slate-200">
+        <div className="h-full w-full rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-200">
             <MapContainer
                 center={[center.lat, center.lng]}
                 zoom={zoom}

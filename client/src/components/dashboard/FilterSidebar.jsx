@@ -63,18 +63,18 @@ const FilterSidebar = ({
 
     return (
         <>
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 h-full flex flex-col">
-                <h2 className="text-sm font-bold text-slate-800 mb-4">Filters & Controls</h2>
+            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-4 h-full flex flex-col transition-colors duration-200">
+                <h2 className="text-sm font-bold text-slate-800 dark:text-white mb-4">Filters & Controls</h2>
 
                 {/* State Selector - Only shown in Pan-India view */}
                 {showStateSelector && (
                     <div className="mb-4">
-                        <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Select State</label>
+                        <label className="block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-2">Select State</label>
                         <div className="relative">
                             <select
                                 value={selectedState}
                                 onChange={(e) => onStateChange(e.target.value)}
-                                className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2.5 appearance-none cursor-pointer"
+                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2.5 appearance-none cursor-pointer transition-colors"
                             >
                                 <option value="">All States</option>
                                 {states.map((state) => (
@@ -92,13 +92,13 @@ const FilterSidebar = ({
 
                 {/* District Selector */}
                 <div className="mb-4">
-                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Select District</label>
+                    <label className="block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-2">Select District</label>
                     <div className="relative">
                         <select
                             value={selectedDistrict}
                             onChange={(e) => onDistrictChange(e.target.value)}
                             disabled={showStateSelector && !selectedState}
-                            className={`w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2.5 appearance-none cursor-pointer ${showStateSelector && !selectedState ? 'opacity-50 cursor-not-allowed' : ''
+                            className={`w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2.5 appearance-none cursor-pointer transition-colors ${showStateSelector && !selectedState ? 'opacity-50 cursor-not-allowed' : ''
                                 }`}
                         >
                             <option value="">{showStateSelector && !selectedState ? 'Select state first' : 'All Districts'}</option>
@@ -115,9 +115,9 @@ const FilterSidebar = ({
                 </div>
 
                 {/* Simulation Period */}
-                <div className="mb-4 bg-blue-50 rounded-lg p-3 border border-blue-100">
-                    <label className="block text-xs font-bold text-blue-800 uppercase mb-1">Simulation Period</label>
-                    <div className="flex items-center gap-2 text-blue-600">
+                <div className="mb-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border border-blue-100 dark:border-blue-800 transition-colors">
+                    <label className="block text-xs font-bold text-blue-800 dark:text-blue-300 uppercase mb-1">Simulation Period</label>
+                    <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -131,35 +131,35 @@ const FilterSidebar = ({
 
                 {/* Legend */}
                 <div className="mb-4">
-                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Depth Legend (mbgl)</label>
+                    <label className="block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-2">Depth Legend (mbgl)</label>
                     <div className="space-y-1.5 text-xs">
                         <div className="flex items-center gap-2">
                             <div className="w-3 h-3 rounded-full bg-blue-500 shadow-sm"></div>
-                            <span className="text-slate-600">Safe (&lt;10m)</span>
+                            <span className="text-slate-600 dark:text-slate-300">Safe (&lt;10m)</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-3 h-3 rounded-full bg-yellow-400 shadow-sm"></div>
-                            <span className="text-slate-600">Moderate (10-20m)</span>
+                            <span className="text-slate-600 dark:text-slate-300">Moderate (10-20m)</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-3 h-3 rounded-full bg-orange-500 shadow-sm"></div>
-                            <span className="text-slate-600">High (20-40m)</span>
+                            <span className="text-slate-600 dark:text-slate-300">High (20-40m)</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-3 h-3 rounded-full bg-red-600 shadow-sm"></div>
-                            <span className="text-slate-600">Critical (&gt;40m)</span>
+                            <span className="text-slate-600 dark:text-slate-300">Critical (&gt;40m)</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Export Button */}
-                <div className="mt-auto pt-4 border-t border-slate-200">
+                <div className="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800">
                     <button
                         onClick={() => setShowExportModal(true)}
                         disabled={!stateCode && !selectedState}
                         className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm transition ${(stateCode || selectedState)
                             ? 'bg-primary-600 hover:bg-primary-700 text-white shadow-md'
-                            : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                            : 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'
                             }`}
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,7 +168,7 @@ const FilterSidebar = ({
                         Export Data
                     </button>
                     {!stateCode && !selectedState && (
-                        <p className="text-xs text-slate-400 text-center mt-2">Select a state to export</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500 text-center mt-2">Select a state to export</p>
                     )}
                 </div>
             </div>
@@ -176,14 +176,14 @@ const FilterSidebar = ({
             {/* Export Modal */}
             {showExportModal && (
                 <div className="fixed inset-0 bg-black/50 z-[10000] flex items-center justify-center p-4">
-                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-md">
-                        <div className="flex justify-between items-center p-4 border-b border-slate-200">
-                            <h3 className="text-lg font-bold text-slate-800">Export Groundwater Data</h3>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-md transition-colors duration-200">
+                        <div className="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-700">
+                            <h3 className="text-lg font-bold text-slate-800 dark:text-white">Export Groundwater Data</h3>
                             <button
                                 onClick={() => setShowExportModal(false)}
-                                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center"
+                                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 flex items-center justify-center transition-colors"
                             >
-                                <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-4 h-4 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
@@ -192,11 +192,11 @@ const FilterSidebar = ({
                         <form onSubmit={handleExportSubmit} className="p-4 space-y-4">
                             {/* District Selection */}
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Select District</label>
+                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Select District</label>
                                 <select
                                     value={exportForm.district}
                                     onChange={(e) => setExportForm({ ...exportForm, district: e.target.value })}
-                                    className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-slate-700 dark:text-slate-200 transition-colors"
                                 >
                                     <option value="">All Districts</option>
                                     {districts.map((district) => (
@@ -209,36 +209,36 @@ const FilterSidebar = ({
 
                             {/* Name */}
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Your Name *</label>
+                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
                                 <input
                                     type="text"
                                     required
                                     value={exportForm.name}
                                     onChange={(e) => setExportForm({ ...exportForm, name: e.target.value })}
                                     placeholder="Enter your name"
-                                    className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 transition-colors"
                                 />
                             </div>
 
                             {/* Email */}
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Email Address *</label>
+                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address *</label>
                                 <input
                                     type="email"
                                     required
                                     value={exportForm.email}
                                     onChange={(e) => setExportForm({ ...exportForm, email: e.target.value })}
                                     placeholder="your.email@example.com"
-                                    className="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                    className="w-full bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 transition-colors"
                                 />
                             </div>
 
                             {/* Status Message */}
                             {exportStatus.message && (
                                 <div className={`p-3 rounded-lg text-sm ${exportStatus.success
-                                    ? 'bg-green-50 text-green-700 border border-green-200'
-                                    : 'bg-red-50 text-red-700 border border-red-200'
-                                    }`}>
+                                    ? 'bg-green-50 text-green-700 border border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800'
+                                    : 'bg-red-50 text-red-700 border border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800'
+                                    } transition-colors`}>
                                     {exportStatus.message}
                                 </div>
                             )}
@@ -264,7 +264,7 @@ const FilterSidebar = ({
                                 )}
                             </button>
 
-                            <p className="text-xs text-slate-500 text-center">
+                            <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
                                 You'll receive an email with a download link valid for 24 hours.
                             </p>
                         </form>

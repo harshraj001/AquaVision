@@ -32,15 +32,15 @@ const LandingPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-slate-50">
+        <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
             <Navbar />
 
             <main className="flex-grow">
                 {/* Hero Section */}
                 <section className="relative overflow-hidden">
                     {/* Background Pattern */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-slate-100"></div>
-                    <div className="absolute inset-0 opacity-30">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 transition-colors duration-200"></div>
+                    <div className="absolute inset-0 opacity-30 dark:opacity-10">
                         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -59,11 +59,11 @@ const LandingPage = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.6 }}
                             >
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 leading-tight">
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-800 dark:text-white leading-tight">
                                     MONITORING<br />
-                                    <span className="text-primary-600">INDIA'S AQUIFERS.</span>
+                                    <span className="text-primary-600 dark:text-primary-400">INDIA'S AQUIFERS.</span>
                                 </h1>
-                                <p className="mt-6 text-lg text-slate-600 max-w-lg">
+                                <p className="mt-6 text-lg text-slate-600 dark:text-slate-300 max-w-lg">
                                     Visualize groundwater depth levels across Indian states with
                                     interactive maps, time-based simulation, and district-wise analytics
                                     using CGWB data.
@@ -75,7 +75,7 @@ const LandingPage = () => {
                                         <select
                                             value={selectedState}
                                             onChange={(e) => setSelectedState(e.target.value)}
-                                            className="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
+                                            className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer transition-colors"
                                         >
                                             <option value="">Select a State to Explore...</option>
                                             {states.map((state) => (
@@ -102,7 +102,7 @@ const LandingPage = () => {
 
                                 <button
                                     onClick={() => navigate('/dashboard')}
-                                    className="mt-4 text-sm text-primary-600 hover:text-primary-700 font-medium"
+                                    className="mt-4 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
                                 >
                                     View Pan-India Map →
                                 </button>
@@ -115,7 +115,7 @@ const LandingPage = () => {
                                 transition={{ duration: 0.6, delay: 0.2 }}
                                 className="relative"
                             >
-                                <div className="relative bg-white rounded-2xl shadow-xl p-4 border border-slate-200">
+                                <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 border border-slate-200 dark:border-slate-700">
                                     {/* India Map Image */}
                                     <img
                                         src="/india-map.png"
@@ -124,36 +124,36 @@ const LandingPage = () => {
                                     />
 
                                     {/* Legend - matching CGWB depth scale */}
-                                    <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur rounded-lg p-3 shadow-lg border border-slate-200">
+                                    <div className="absolute bottom-6 right-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur rounded-lg p-3 shadow-lg border border-slate-200 dark:border-slate-700">
                                         <div className="flex items-center gap-2 mb-2">
                                             <div className="w-2 h-2 rounded-full bg-purple-700"></div>
-                                            <span className="text-xs text-slate-600 font-medium">Gauge Stations</span>
+                                            <span className="text-xs text-slate-600 dark:text-slate-300 font-medium">Gauge Stations</span>
                                         </div>
-                                        <p className="text-xs font-semibold text-slate-700 mb-2">Depth to Water Level (m)</p>
+                                        <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 mb-2">Depth to Water Level (m)</p>
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
                                                 <div className="w-4 h-3 rounded-sm" style={{ backgroundColor: '#2166ac' }}></div>
-                                                <span className="text-xs text-slate-600">0 - 2</span>
+                                                <span className="text-xs text-slate-600 dark:text-slate-400">0 - 2</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <div className="w-4 h-3 rounded-sm" style={{ backgroundColor: '#67a9cf' }}></div>
-                                                <span className="text-xs text-slate-600">2 - 5</span>
+                                                <span className="text-xs text-slate-600 dark:text-slate-400">2 - 5</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <div className="w-4 h-3 rounded-sm" style={{ backgroundColor: '#d1e5f0' }}></div>
-                                                <span className="text-xs text-slate-600">5 - 10</span>
+                                                <span className="text-xs text-slate-600 dark:text-slate-400">5 - 10</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <div className="w-4 h-3 rounded-sm" style={{ backgroundColor: '#fddbc7' }}></div>
-                                                <span className="text-xs text-slate-600">10 - 20</span>
+                                                <span className="text-xs text-slate-600 dark:text-slate-400">10 - 20</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <div className="w-4 h-3 rounded-sm" style={{ backgroundColor: '#ef8a62' }}></div>
-                                                <span className="text-xs text-slate-600">20 - 40</span>
+                                                <span className="text-xs text-slate-600 dark:text-slate-400">20 - 40</span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <div className="w-4 h-3 rounded-sm" style={{ backgroundColor: '#b2182b' }}></div>
-                                                <span className="text-xs text-slate-600">&gt;40</span>
+                                                <span className="text-xs text-slate-600 dark:text-slate-400">&gt;40</span>
                                             </div>
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@ const LandingPage = () => {
                 </section>
 
                 {/* Features Section */}
-                <section className="py-20 bg-white">
+                <section className="py-20 bg-white dark:bg-slate-900 transition-colors duration-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -172,8 +172,8 @@ const LandingPage = () => {
                             viewport={{ once: true }}
                             className="text-center mb-12"
                         >
-                            <h2 className="text-3xl font-bold text-slate-800">Platform Features</h2>
-                            <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+                            <h2 className="text-3xl font-bold text-slate-800 dark:text-white">Platform Features</h2>
+                            <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                                 Advanced tools for comprehensive groundwater analysis and monitoring
                             </p>
                         </motion.div>
@@ -214,13 +214,13 @@ const LandingPage = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: index * 0.1 }}
-                                    className="card text-center"
+                                    className="card text-center bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
                                 >
-                                    <div className="w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center mx-auto mb-4 text-primary-600">
+                                    <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mx-auto mb-4 text-primary-600 dark:text-primary-400">
                                         {feature.icon}
                                     </div>
-                                    <h3 className="text-lg font-semibold text-slate-800 mb-2">{feature.title}</h3>
-                                    <p className="text-slate-600 text-sm">{feature.description}</p>
+                                    <h3 className="text-lg font-semibold text-slate-800 dark:text-white mb-2">{feature.title}</h3>
+                                    <p className="text-slate-600 dark:text-slate-400 text-sm">{feature.description}</p>
                                 </motion.div>
                             ))}
                         </div>

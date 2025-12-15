@@ -19,14 +19,14 @@ const TeamPage = () => {
     ];
 
     return (
-        <div className="min-h-screen flex flex-col bg-slate-50">
+        <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
             <Navbar />
 
             <main className="flex-grow">
                 {/* Header */}
-                <section className="bg-white py-6 border-b border-slate-200">
+                <section className="bg-white dark:bg-slate-900 py-6 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex items-center gap-2 text-sm text-slate-600">
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                             <span className="font-semibold">AquaVision India</span>
                             <span>→</span>
                             <span>Team & Contributors</span>
@@ -42,8 +42,8 @@ const TeamPage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             className="text-center mb-12"
                         >
-                            <h1 className="text-4xl font-bold text-slate-800">Meet the Team</h1>
-                            <p className="mt-4 text-slate-600">
+                            <h1 className="text-4xl font-bold text-slate-800 dark:text-white">Meet the Team</h1>
+                            <p className="mt-4 text-slate-600 dark:text-slate-400">
                                 A student-led initiative from Lovely Professional University
                             </p>
                         </motion.div>
@@ -55,7 +55,7 @@ const TeamPage = () => {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
-                                    className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 text-center"
+                                    className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 text-center transition-colors duration-200"
                                 >
                                     {/* Avatar */}
                                     <div className="w-20 h-20 bg-gradient-to-br from-primary-400 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -65,8 +65,8 @@ const TeamPage = () => {
                                     </div>
 
                                     {/* Info */}
-                                    <h3 className="text-lg font-semibold text-slate-800">{member.name}</h3>
-                                    <p className="text-slate-500 text-sm mt-1">{member.university}</p>
+                                    <h3 className="text-lg font-semibold text-slate-800 dark:text-white">{member.name}</h3>
+                                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">{member.university}</p>
                                 </motion.div>
                             ))}
                         </div>

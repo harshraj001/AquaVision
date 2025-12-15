@@ -31,10 +31,10 @@ const Hydrograph = ({
         if (active && payload && payload.length) {
             const depth = payload[0].value;
             return (
-                <div className="bg-white p-2 rounded shadow-lg border border-slate-200 text-xs">
-                    <p className="font-medium text-slate-800">{label}</p>
-                    <p className="text-slate-600">
-                        Avg Depth: <span className="font-semibold text-primary-600">{depth?.toFixed(1)}m</span>
+                <div className="bg-white dark:bg-slate-800 p-2 rounded shadow-lg border border-slate-200 dark:border-slate-700 text-xs">
+                    <p className="font-medium text-slate-800 dark:text-white">{label}</p>
+                    <p className="text-slate-600 dark:text-slate-300">
+                        Avg Depth: <span className="font-semibold text-primary-600 dark:text-primary-400">{depth?.toFixed(1)}m</span>
                     </p>
                 </div>
             );
@@ -42,26 +42,31 @@ const Hydrograph = ({
         return null;
     };
 
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    const gridColor = isDarkMode ? '#334155' : '#e2e8f0';
+    const axisColor = isDarkMode ? '#94a3b8' : '#64748b';
+    const lineColor = isDarkMode ? '#475569' : '#cbd5e1';
+
     const ChartContent = ({ height = "100%" }) => (
         <ResponsiveContainer width="100%" height={height}>
             <LineChart
                 data={chartData}
                 margin={{ top: 10, right: 20, left: 0, bottom: 10 }}
             >
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                 <XAxis
                     dataKey="date"
-                    tick={{ fontSize: isFullscreen ? 12 : 9, fill: '#64748b' }}
-                    axisLine={{ stroke: '#cbd5e1' }}
-                    tickLine={{ stroke: '#cbd5e1' }}
+                    tick={{ fontSize: isFullscreen ? 12 : 9, fill: axisColor }}
+                    axisLine={{ stroke: lineColor }}
+                    tickLine={{ stroke: lineColor }}
                 />
                 <YAxis
                     reversed
                     domain={[0, 'auto']}
-                    tick={{ fontSize: isFullscreen ? 12 : 9, fill: '#64748b' }}
-                    axisLine={{ stroke: '#cbd5e1' }}
-                    tickLine={{ stroke: '#cbd5e1' }}
-                    label={isFullscreen ? { value: 'Depth (m bgl)', angle: -90, position: 'insideLeft', fontSize: 12 } : undefined}
+                    tick={{ fontSize: isFullscreen ? 12 : 9, fill: axisColor }}
+                    axisLine={{ stroke: lineColor }}
+                    tickLine={{ stroke: lineColor }}
+                    label={isFullscreen ? { value: 'Depth (m bgl)', angle: -90, position: 'insideLeft', fontSize: 12, fill: axisColor } : undefined}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <ReferenceLine
@@ -87,12 +92,12 @@ const Hydrograph = ({
     return (
         <>
             {/* Compact View */}
-            <div className="bg-white rounded-lg border border-slate-200 p-3 h-full flex flex-col">
+            <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 p-3 h-full flex flex-col transition-colors duration-200">
                 <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-xs font-bold text-slate-800">{title}</h3>
+                    <h3 className="text-xs font-bold text-slate-800 dark:text-white">{title}</h3>
                     <button
                         onClick={() => setIsFullscreen(true)}
-                        className="text-slate-400 hover:text-primary-600 transition"
+                        className="text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition"
                         title="View Fullscreen"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,20 +118,20 @@ const Hydrograph = ({
             {/* Fullscreen Modal */}
             {isFullscreen && (
                 <div className="fixed inset-0 bg-black/50 z-[2000] flex items-center justify-center p-8">
-                    <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl h-[80vh] flex flex-col">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-5xl h-[80vh] flex flex-col transition-colors duration-200">
                         {/* Header */}
-                        <div className="flex justify-between items-center p-4 border-b border-slate-200">
+                        <div className="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-800">
                             <div>
-                                <h2 className="text-lg font-bold text-slate-800">
+                                <h2 className="text-lg font-bold text-slate-800 dark:text-white">
                                     {districtName ? `${districtName} District` : 'State'} - Groundwater Hydrograph
                                 </h2>
-                                <p className="text-sm text-slate-500">Average depth across monitoring wells (2023-24)</p>
+                                <p className="text-sm text-slate-500 dark:text-slate-400">Average depth across monitoring wells (2023-24)</p>
                             </div>
                             <button
                                 onClick={() => setIsFullscreen(false)}
-                                className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition"
+                                className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition"
                             >
-                                <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
@@ -138,14 +143,14 @@ const Hydrograph = ({
                         </div>
 
                         {/* Legend */}
-                        <div className="flex justify-center gap-6 p-4 border-t border-slate-200 bg-slate-50">
+                        <div className="flex justify-center gap-6 p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-1 bg-primary-600 rounded"></div>
-                                <span className="text-sm text-slate-600">Average Depth (m bgl)</span>
+                                <span className="text-sm text-slate-600 dark:text-slate-300">Average Depth (m bgl)</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-0.5 bg-red-500" style={{ borderTop: '2px dashed #DC2626' }}></div>
-                                <span className="text-sm text-slate-600">Critical Threshold ({criticalDepth}m)</span>
+                                <span className="text-sm text-slate-600 dark:text-slate-300">Critical Threshold ({criticalDepth}m)</span>
                             </div>
                         </div>
                     </div>

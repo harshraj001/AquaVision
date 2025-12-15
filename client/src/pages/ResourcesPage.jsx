@@ -10,17 +10,17 @@ const ResourcesPage = () => {
     ];
 
     return (
-        <div className="min-h-screen flex flex-col bg-slate-50">
+        <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
             <Navbar />
 
             <main className="flex-grow">
                 {/* Header */}
-                <section className="bg-white py-12 border-b border-slate-200">
+                <section className="bg-white dark:bg-slate-900 py-12 border-b border-slate-200 dark:border-slate-800 transition-colors duration-200">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-4xl font-bold text-slate-800"
+                            className="text-4xl font-bold text-slate-800 dark:text-white"
                         >
                             Resources
                         </motion.h1>
@@ -36,7 +36,7 @@ const ResourcesPage = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
                         >
-                            <h2 className="text-2xl font-bold text-slate-800 mb-6">External Links & Related Work</h2>
+                            <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">External Links & Related Work</h2>
                             <div className="space-y-4">
                                 {externalLinks.map((link, index) => (
                                     <a
@@ -44,14 +44,14 @@ const ResourcesPage = () => {
                                         href={link.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex items-center gap-4 hover:border-primary-300 hover:shadow-md transition-all group"
+                                        className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-4 flex items-center gap-4 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-md transition-all group duration-200"
                                     >
-                                        <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center group-hover:bg-primary-100 transition-colors">
-                                            <svg className="w-5 h-5 text-slate-500 group-hover:text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div className="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center group-hover:bg-primary-100 dark:group-hover:bg-primary-900/30 transition-colors">
+                                            <svg className="w-5 h-5 text-slate-500 dark:text-slate-400 group-hover:text-primary-600 dark:group-hover:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                             </svg>
                                         </div>
-                                        <span className="text-slate-700 font-medium group-hover:text-primary-600 transition-colors">
+                                        <span className="text-slate-700 dark:text-slate-300 font-medium group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                                             {link.name}
                                         </span>
                                     </a>

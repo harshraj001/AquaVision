@@ -46,24 +46,24 @@ const TimelineSlider = ({
 
     // Get season info
     const getSeasonInfo = () => {
-        if (!currentDate) return { name: 'Loading', color: 'text-slate-500' };
+        if (!currentDate) return { name: 'Loading', color: 'text-slate-500 dark:text-slate-400' };
         const month = new Date(currentDate).getMonth();
         if (month >= 5 && month <= 9) {
-            return { name: 'Kharif', color: 'text-green-600' };
+            return { name: 'Kharif', color: 'text-green-600 dark:text-green-400' };
         } else if (month >= 10 || month <= 2) {
-            return { name: 'Rabi', color: 'text-amber-600' };
+            return { name: 'Rabi', color: 'text-amber-600 dark:text-amber-400' };
         }
-        return { name: 'Pre-Monsoon', color: 'text-blue-600' };
+        return { name: 'Pre-Monsoon', color: 'text-blue-600 dark:text-blue-400' };
     };
 
     const season = getSeasonInfo();
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 px-4 py-2 h-full flex items-center gap-4">
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 px-4 py-2 h-full flex items-center gap-4 transition-colors duration-200">
             {/* Play/Pause Button */}
             <button
                 onClick={onPlayPause}
-                className="w-9 h-9 bg-primary-600 hover:bg-primary-700 rounded-full flex items-center justify-center transition-colors shadow-md shrink-0"
+                className="w-9 h-9 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors shadow-md shrink-0"
             >
                 {isPlaying ? (
                     <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@ const TimelineSlider = ({
             {/* Slider Container */}
             <div className="flex-1 flex flex-col justify-center">
                 {/* Month labels row */}
-                <div className="flex justify-between text-[10px] font-semibold text-slate-400 uppercase mb-1">
+                <div className="flex justify-between text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">
                     <span>Jun '23</span>
                     <span>Aug '23</span>
                     <span>Nov '23</span>
@@ -93,14 +93,14 @@ const TimelineSlider = ({
                     max={totalDays || 100}
                     value={sliderValue}
                     onChange={handleSliderChange}
-                    className="timeline-slider w-full"
+                    className="timeline-slider w-full accent-primary-600 dark:accent-primary-500"
                 />
             </div>
 
             {/* Current Date & Season */}
             <div className="text-right shrink-0 w-24">
-                <div className="text-xs font-bold text-slate-400 uppercase">Date</div>
-                <div className="text-sm font-bold text-primary-600">{formatDate(currentDate)}</div>
+                <div className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase">Date</div>
+                <div className="text-sm font-bold text-primary-600 dark:text-primary-400">{formatDate(currentDate)}</div>
                 <div className={`text-[10px] font-medium ${season.color}`}>{season.name}</div>
             </div>
         </div>

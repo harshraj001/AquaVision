@@ -5,18 +5,22 @@ import AboutPage from './pages/AboutPage';
 import ResourcesPage from './pages/ResourcesPage';
 import TeamPage from './pages/TeamPage';
 
+import { ThemeProvider } from './context/ThemeContext';
+
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/:stateCode" element={<Dashboard />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/resources" element={<ResourcesPage />} />
-        <Route path="/team" element={<TeamPage />} />
-      </Routes>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/:stateCode" element={<Dashboard />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="/team" element={<TeamPage />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 
