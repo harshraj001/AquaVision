@@ -251,6 +251,10 @@ const Dashboard = () => {
         ? (wells.reduce((sum, w) => sum + (w.depth || 0), 0) / wells.length).toFixed(1)
         : '--';
 
+    // Mobile Tab State
+    const [activeTab, setActiveTab] = useState('map'); // 'map', 'analytics'
+    const [showFilters, setShowFilters] = useState(false);
+
     if (loading) {
         return (
             <div className="h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
@@ -301,24 +305,37 @@ const Dashboard = () => {
             </div>
 
             {/* Main Dashboard */}
-            <main className="flex-1 flex p-2 gap-2 overflow-hidden">
-                {/* Left Sidebar */}
-                <aside className="w-56 shrink-0">
-                    <FilterSidebar
-                        states={states}
-                        selectedState={selectedState}
-                        onStateChange={handleStateChange}
-                        districts={stateConfig?.districts || []}
-                        selectedDistrict={selectedDistrict}
-                        onDistrictChange={handleDistrictChange}
-                        dateRange={dateRange}
-                        showStateSelector={!stateCode}
-                        stateCode={stateCode}
-                    />
+            <main className="flex-1 flex flex-col md:flex-row p-2 gap-2 overflow-hidden relative">
+                {/* Left Sidebar - Filters (Desktop: Sidebar, Mobile: Modal) */}
+                <aside className={`shrink-0 md:block md:w-56 ${showFilters ? 'fixed inset-0 z-[2000] p-4 bg-black/50 flex items-center justify-center md:static md:bg-transparent md:p-0 md:z-auto' : 'hidden'}`}>
+                    <div className="w-full max-w-sm md:max-w-none max-h-[85vh] md:max-h-none h-auto md:h-auto bg-white dark:bg-slate-900 md:bg-transparent rounded-xl md:rounded-none shadow-2xl md:shadow-none overflow-hidden flex flex-col">
+                        {/* Mobile Header for Filters */}
+                        <div className="md:hidden flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shrink-0">
+                            <h3 className="font-bold text-slate-800 dark:text-white">Filters</h3>
+                            <button onClick={() => setShowFilters(false)} className="p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+                                <svg className="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="flex-1 overflow-y-auto md:overflow-visible p-1">
+                            <FilterSidebar
+                                states={states}
+                                selectedState={selectedState}
+                                onStateChange={handleStateChange}
+                                districts={stateConfig?.districts || []}
+                                selectedDistrict={selectedDistrict}
+                                onDistrictChange={handleDistrictChange}
+                                dateRange={dateRange}
+                                showStateSelector={!stateCode}
+                                stateCode={stateCode}
+                            />
+                        </div>
+                    </div>
                 </aside>
 
                 {/* Center: Map & Timeline */}
-                <section className="flex-1 flex flex-col gap-2 min-w-0">
+                <section className={`flex-1 flex-col gap-2 min-w-0 md:flex ${activeTab === 'map' ? 'flex' : 'hidden'}`}>
                     {/* Map Container */}
                     <div className="flex-1 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm relative p-1 min-h-0 transition-colors duration-200">
                         <MapView
@@ -352,8 +369,8 @@ const Dashboard = () => {
                     </div>
                 </section>
 
-                {/* Right Sidebar */}
-                <aside className="w-72 shrink-0">
+                {/* Right Sidebar - Analytics */}
+                <aside className={`shrink-0 md:block md:w-72 ${activeTab === 'analytics' ? 'block w-full flex-1' : 'hidden'}`}>
                     <AnalyticsPanel
                         selectedWell={selectedWell}
                         districtStats={districtStats}
@@ -366,8 +383,39 @@ const Dashboard = () => {
                 </aside>
             </main>
 
-            {/* Footer */}
-            <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-1 px-4 text-xs text-slate-400 dark:text-slate-500 flex justify-between shrink-0 transition-colors duration-200">
+            {/* Mobile Bottom Navigation */}
+            <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex justify-around items-center p-2 shrink-0 z-50 transition-colors duration-200">
+                <button
+                    onClick={() => setShowFilters(true)}
+                    className={`flex flex-col items-center p-2 rounded-lg transition-colors ${showFilters ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20' : 'text-slate-500 dark:text-slate-400'}`}
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                    </svg>
+                    <span className="text-xs font-medium mt-1">Filters</span>
+                </button>
+                <button
+                    onClick={() => { setActiveTab('map'); setShowFilters(false); }}
+                    className={`flex flex-col items-center p-2 rounded-lg transition-colors ${activeTab === 'map' && !showFilters ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20' : 'text-slate-500 dark:text-slate-400'}`}
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                    <span className="text-xs font-medium mt-1">Map</span>
+                </button>
+                <button
+                    onClick={() => { setActiveTab('analytics'); setShowFilters(false); }}
+                    className={`flex flex-col items-center p-2 rounded-lg transition-colors ${activeTab === 'analytics' && !showFilters ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20' : 'text-slate-500 dark:text-slate-400'}`}
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <span className="text-xs font-medium mt-1">Analytics</span>
+                </button>
+            </div>
+
+            {/* Footer - Hidden on mobile to save space, or we can keep it if needed. Let's hide it on mobile. */}
+            <footer className="hidden md:flex bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-1 px-4 text-xs text-slate-400 dark:text-slate-500 justify-between shrink-0 transition-colors duration-200">
                 <span>© 2024 AquaVision India. Developed for Academic Project.</span>
                 <span>Data Source: CGWB Yearbook 2023-24</span>
             </footer>

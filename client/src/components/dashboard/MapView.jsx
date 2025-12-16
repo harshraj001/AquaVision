@@ -82,34 +82,34 @@ const MapView = ({
                     >
                         <Popup>
                             <div className="p-2 min-w-[200px]">
-                                <h3 className="font-semibold text-slate-800 mb-2">{well.wellId}</h3>
+                                <h3 className="font-semibold text-slate-800 dark:text-slate-100 mb-2">{well.wellId}</h3>
                                 <div className="space-y-1 text-sm">
-                                    <p className="text-slate-600">
+                                    <p className="text-slate-600 dark:text-slate-300">
                                         <span className="font-medium">District:</span> {well.district}
                                     </p>
                                     {well.block && (
-                                        <p className="text-slate-600">
+                                        <p className="text-slate-600 dark:text-slate-300">
                                             <span className="font-medium">Block:</span> {well.block}
                                         </p>
                                     )}
-                                    <p className="text-slate-600">
+                                    <p className="text-slate-600 dark:text-slate-300">
                                         <span className="font-medium">Depth:</span>{' '}
-                                        <span className={`font-semibold ${well.status === 'critical' ? 'text-red-600' :
-                                            well.status === 'warning' ? 'text-amber-600' : 'text-blue-600'
+                                        <span className={`font-semibold ${well.status === 'critical' ? 'text-red-600 dark:text-red-400' :
+                                            well.status === 'warning' ? 'text-amber-600 dark:text-amber-400' : 'text-blue-600 dark:text-blue-400'
                                             }`}>
                                             {well.depth !== null ? `${well.depth.toFixed(1)}m` : 'N/A'}
                                         </span>
                                     </p>
-                                    <p className="text-slate-600">
+                                    <p className="text-slate-600 dark:text-slate-300">
                                         <span className="font-medium">Status:</span>{' '}
-                                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${well.status === 'critical' ? 'bg-red-100 text-red-800' :
-                                            well.status === 'warning' ? 'bg-amber-100 text-amber-800' :
-                                                'bg-blue-100 text-blue-800'
+                                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${well.status === 'critical' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
+                                            well.status === 'warning' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
+                                                'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
                                             }`}>
                                             {well.status}
                                         </span>
                                     </p>
-                                    <p className="text-slate-600">
+                                    <p className="text-slate-600 dark:text-slate-300">
                                         <span className="font-medium">Critical Threshold:</span> {well.criticalDepth}m
                                     </p>
                                 </div>

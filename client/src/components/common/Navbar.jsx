@@ -59,10 +59,8 @@ const Navbar = () => {
                     {/* Logo */}
                     <div className="flex items-center">
                         <Link to="/" className="flex items-center space-x-2">
-                            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-                                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                                </svg>
+                            <div className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden">
+                                <img src="/logo.png" alt="AquaVision Logo" className="w-full h-full object-contain" />
                             </div>
                             <span className="text-xl font-bold text-slate-800 dark:text-white">AquaVision India</span>
                         </Link>
@@ -179,18 +177,18 @@ const Navbar = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-white border-t border-slate-200"
+                        className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800"
                     >
                         <div className="px-4 py-3 space-y-2">
-                            <Link to="/" className="block py-2 text-slate-600">Home</Link>
-                            <Link to="/about" className="block py-2 text-slate-600">About Project</Link>
-                            <Link to="/team" className="block py-2 text-slate-600">Team</Link>
-                            <Link to="/resources" className="block py-2 text-slate-600">Resources</Link>
-                            <hr className="my-2" />
-                            <p className="text-sm font-medium text-slate-500">Select State:</p>
+                            <Link to="/" className="block py-2 text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400">Home</Link>
+                            <Link to="/about" className="block py-2 text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400">About Project</Link>
+                            <Link to="/team" className="block py-2 text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400">Team</Link>
+                            <Link to="/resources" className="block py-2 text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400">Resources</Link>
+                            <hr className="my-2 border-slate-200 dark:border-slate-800" />
+                            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Select State:</p>
                             <Link
                                 to="/dashboard"
-                                className="block py-2 pl-4 text-blue-600 font-medium"
+                                className="block py-2 pl-4 text-blue-600 dark:text-blue-400 font-medium"
                             >
                                 Pan-India View
                             </Link>
@@ -198,17 +196,17 @@ const Navbar = () => {
                                 <Link
                                     key={state.stateCode}
                                     to={`/dashboard/${state.stateCode}`}
-                                    className={`block py-2 pl-4 ${stateCode === state.stateCode ? 'text-primary-600 font-medium' : 'text-slate-600'}`}
+                                    className={`block py-2 pl-4 ${stateCode === state.stateCode ? 'text-primary-600 dark:text-primary-400 font-medium' : 'text-slate-600 dark:text-slate-300'}`}
                                 >
                                     {state.name}
                                 </Link>
                             ))}
-                            <div className="block py-2 pl-4 text-slate-400 italic">
+                            <div className="block py-2 pl-4 text-slate-400 dark:text-slate-500 italic">
                                 More states coming soon...
                             </div>
-                            <hr className="my-2" />
+                            <hr className="my-2 border-slate-200 dark:border-slate-800" />
                             <div className="flex items-center justify-between px-4 py-2">
-                                <span className="text-slate-600 dark:text-slate-400">Theme</span>
+                                <span className="text-slate-600 dark:text-slate-300">Theme</span>
                                 <ThemeToggle />
                             </div>
                         </div>
