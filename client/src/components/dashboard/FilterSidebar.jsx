@@ -134,7 +134,7 @@ const FilterSidebar = ({
                     <label className="block text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-2">Depth Legend (mbgl)</label>
                     <div className="space-y-1.5 text-xs">
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-blue-500 shadow-sm"></div>
+                            <div className="w-3 h-3 rounded-full bg-green-500 shadow-sm"></div>
                             <span className="text-slate-600 dark:text-slate-300">Safe (&lt;10m)</span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -146,7 +146,7 @@ const FilterSidebar = ({
                             <span className="text-slate-600 dark:text-slate-300">High (20-40m)</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-red-600 shadow-sm"></div>
+                            <div className="w-3 h-3 rounded-full bg-red-500 shadow-sm"></div>
                             <span className="text-slate-600 dark:text-slate-300">Critical (&gt;40m)</span>
                         </div>
                     </div>

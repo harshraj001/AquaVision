@@ -33,10 +33,10 @@ const MapView = ({
     // Color based on depth status
     const getMarkerColor = (color) => {
         const colors = {
-            blue: '#3B82F6',
-            yellow: '#EAB308',
-            amber: '#F59E0B',
-            red: '#DC2626',
+            blue: '#22c55e', // Green for Safe
+            yellow: '#facc15', // Bright Yellow for Moderate
+            amber: '#f97316', // Orange for High
+            red: '#ef4444', // Red for Critical
             gray: '#9CA3AF',
         };
         return colors[color] || colors.gray;
